@@ -1,29 +1,39 @@
 package algorithmpractice;
+
+import javafx.scene.shape.HLineTo;
+import org.junit.Test;
+
 /**打印出杨辉三角形（要求打印出10行），要求等腰三角形
 * */
 public class YangHuiSanJiaoXing {
-    public static void main(String[] args){
-        yang();
-    }
-    public static int[][] yang(){
+
+    @Test
+    public void yang(){
         int max = 10;
-        int [][] result = new int[max][];
-        for (int line=0; line<result.length; line++){
-            for (int row=0 ; row<= line;row++){
-                int num =1;
-                for (int i= 1;i<=row;i++){
-                    num = num * (line-i+1)/i;
+        int [][] result = new int[max][max];
+        int line;
+        for (line=0; line<max; line++){
+            //行
+            for (int i=0 ; i<= line;i++){
+                //列
+                if (i == 0|| i==line) {
+                    result[line][i]=1;
+                } else {
+                    result[line][i]= result[line-1][i-1]+result[line-1][i];
                 }
-                 result[line][row]= num;
             }
         }
-        //输出
-        for (int[] a :result ) {
-            for (int b : a){
-                System.out.printf("%4d",b);
+        //等腰输出
+        for (int i=0; i< line;i++){
+            //下标
+            int num = line -i;
+            for (int j=0; j<=num; j++){
+                System.out.print(" ");
+            }
+            for (int k=0; k<=i; k++){
+                System.out.print(result[i][k]+" ");
             }
             System.out.println();
         }
-        return result;
     }
 }
